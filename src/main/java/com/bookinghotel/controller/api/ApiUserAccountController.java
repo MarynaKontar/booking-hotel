@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Endpoints for {@link UserAccount}
+ */
 @RestController
 @RequestMapping("account")
 public class ApiUserAccountController {
@@ -22,11 +25,6 @@ public class ApiUserAccountController {
     public ApiUserAccountController(UserAccountService userAccountService, UserAccountDtoConverter userAccountDtoConverter) {
         this.userAccountService = userAccountService;
         this.userAccountDtoConverter = userAccountDtoConverter;
-    }
-
-    @GetMapping
-    public ResponseEntity<String> testApp() {
-        return ResponseEntity.ok("bookingHotel is working");
     }
 
     @PostMapping

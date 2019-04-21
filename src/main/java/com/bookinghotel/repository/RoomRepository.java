@@ -6,16 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
-    Room getById(Long id);
 
     @Query("SELECT r FROM Room r WHERE r.id NOT IN (SELECT b.room.id FROM Booking b WHERE b.departure >= (?1) and b.arrival <= (?2))")
     Set<Room> findAllByDates(LocalDate checkIn, LocalDate checkOut);
 
-
-//    @Query("SELECT r FROM Room r WHERE r.category = (?1)")
     Set<Room> findRoomByCategory(RoomCategory roomCategory);
 
 }

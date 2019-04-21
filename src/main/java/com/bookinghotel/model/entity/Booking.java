@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class Booking extends AbstractEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userAccount_id")
     private UserAccount userAccount;
     @OneToOne(fetch = FetchType.EAGER)
     private Room room;

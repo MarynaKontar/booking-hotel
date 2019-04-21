@@ -1,37 +1,54 @@
 package com.bookinghotel.controller.api;
 
 import com.bookinghotel.converter.dto.BookingDtoConverter;
+import com.bookinghotel.converter.dto.HotelDtoConverter;
 import com.bookinghotel.converter.dto.UserAccountDtoConverter;
 import com.bookinghotel.model.dto.BookingDto;
 import com.bookinghotel.model.dto.BookingSearchingDto;
+import com.bookinghotel.model.dto.HotelDto;
 import com.bookinghotel.model.entity.Booking;
 import com.bookinghotel.service.BookingService;
+import com.bookinghotel.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Endpoint for {@link Booking}
+ */
 @RestController
 @RequestMapping("/booking")
 public class ApiBookingController {
     private final BookingService bookingService;
+    private final HotelService hotelService;
     private final BookingDtoConverter bookingDtoConverter;
     private final UserAccountDtoConverter userAccountDtoConverter;
-@Autowired
+    private final HotelDtoConverter hotelDtoConverter;
 
-    public ApiBookingController(BookingService bookingService, BookingDtoConverter bookingDtoConverter, UserAccountDtoConverter userAccountDtoConverter) {
+    @Autowired
+    public ApiBookingController(BookingService bookingService,
+                                HotelService hotelService, BookingDtoConverter bookingDtoConverter,
+                                UserAccountDtoConverter userAccountDtoConverter, HotelDtoConverter hotelDtoConverter) {
         this.bookingService = bookingService;
+        this.hotelService = hotelService;
         this.bookingDtoConverter = bookingDtoConverter;
-    this.userAccountDtoConverter = userAccountDtoConverter;
-}
+        this.userAccountDtoConverter = userAccountDtoConverter;
+        this.hotelDtoConverter = hotelDtoConverter;
+    }
 
     @PostMapping
     public ResponseEntity<BookingDto> create(@RequestBody @NotNull @Valid BookingDto bookingDto) {
-        Booking booking = bookingService.add(bookingDtoConverter.transform(bookingDto), userAccountDtoConverter.transform(bookingDto.getUserAccount()));
+        Booking booking = bookingService.add(bookingDtoConverter.transform(bookingDto),
+                userAccountDtoConverter.transform(bookingDto.getUserAccount()));
         return new ResponseEntity<>(bookingDtoConverter.transform(booking), HttpStatus.CREATED);
     }
 
@@ -45,11 +62,33 @@ public class ApiBookingController {
     }
 
     @GetMapping("/hotel/{hotelId}")
-    public ResponseEntity<BookingSearchingDto> getBookingForHotel(@PathVariable Long hotelId) {
+    public ResponseEntity<BookingSearchingDto> getBookingsForHotel(@PathVariable Long hotelId) {
         List<Booking> bookings = bookingService.findAllByHotelId(hotelId);
         BookingSearchingDto bookingSearchingDto = new BookingSearchingDto();
         List<BookingDto> bookingDtos = bookingDtoConverter.transform(bookings);
         bookingSearchingDto.setBookings(bookingDtos);
+        HotelDto hotelDto = hotelDtoConverter.transform(hotelService.findById(hotelId));
+        bookingSearchingDto.setHotel(hotelDto);
         return ResponseEntity.ok(bookingSearchingDto);
     }
+    @GetMapping("/totalPrice/{id}")
+    public ResponseEntity<BigDecimal> getTotalPriceForBooking(@PathVariable Long id) {
+        Booking booking = bookingService.findById(id);
+        return ResponseEntity.ok(bookingService.getTotalPrice(booking));
+    }
+
+//    @GetMapping("/forRoomAndDates")
+//    public ResponseEntity<BookingSearchingDto> getBookingsForDates(@RequestParam(value = "roomId") @NotEmpty Long roomId,
+//                                                                   @RequestParam(value = "checkIn") @NotEmpty
+//                                                                   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+//                                                                   LocalDate checkIn,
+//                                                                   @RequestParam(value = "checkOut") @NotEmpty
+//                                                                   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+//                                                                   LocalDate checkOut) {
+//        List<Booking> bookings = bookingService.findAllByArrivalGreaterThanEqualAndDepartureLessThanEqual(roomId, checkIn, checkOut);
+//        BookingSearchingDto bookingSearchingDto = new BookingSearchingDto();
+//        List<BookingDto> bookingDtos = bookingDtoConverter.transform(bookings);
+//        bookingSearchingDto.setBookings(bookingDtos);
+//        return ResponseEntity.ok(bookingSearchingDto);
+//    }
 }

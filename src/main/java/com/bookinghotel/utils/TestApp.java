@@ -72,7 +72,7 @@ public class TestApp {
         booking1.setUserAccount(userAccount1);
         booking1.setArrival(LocalDate.of(2019, 10, 25));
         booking1.setDeparture(LocalDate.of(2019, 10, 30));
-        booking1.setTotalPrice(bookingService.getTotalPrice(room1));
+        booking1.setTotalPrice(bookingService.getTotalPrice(booking1));
         bookingService.add(booking1, userAccount1);
 
         Booking booking2 = new Booking();
@@ -80,7 +80,7 @@ public class TestApp {
         booking2.setUserAccount(userAccount2);
         booking2.setArrival(LocalDate.of(2019, 9, 25));
         booking2.setDeparture(LocalDate.of(2019, 9, 30));
-        booking2.setTotalPrice(bookingService.getTotalPrice(room7));
+        booking2.setTotalPrice(bookingService.getTotalPrice(booking2));
         bookingService.add(booking2, userAccount2);
 
         Booking booking3 = new Booking();
@@ -88,7 +88,7 @@ public class TestApp {
         booking3.setUserAccount(userAccount1);
         booking3.setArrival(LocalDate.of(2019, 11, 15));
         booking3.setDeparture(LocalDate.of(2019, 11, 30));
-        booking3.setTotalPrice(bookingService.getTotalPrice(room1));
+        booking3.setTotalPrice(bookingService.getTotalPrice(booking3));
         bookingService.add(booking3, userAccount1);
 
         Booking booking4 = new Booking();
@@ -96,7 +96,7 @@ public class TestApp {
         booking4.setUserAccount(userAccount1);
         booking4.setArrival(LocalDate.of(2019, 11, 10));
         booking4.setDeparture(LocalDate.of(2019, 11, 14));
-        booking4.setTotalPrice(bookingService.getTotalPrice(room3));
+        booking4.setTotalPrice(bookingService.getTotalPrice(booking4));
         bookingService.add(booking4, userAccount1);
 
         Booking booking5 = new Booking();
@@ -104,7 +104,7 @@ public class TestApp {
         booking5.setUserAccount(userAccount2);
         booking5.setArrival(LocalDate.of(2019, 9, 11));
         booking5.setDeparture(LocalDate.of(2019, 9, 30));
-        booking5.setTotalPrice(bookingService.getTotalPrice(room1));
+        booking5.setTotalPrice(bookingService.getTotalPrice(booking5));
         bookingService.add(booking5, userAccount2);
     }
 

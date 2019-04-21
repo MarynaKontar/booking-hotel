@@ -9,9 +9,9 @@ import java.util.Set;
 
 public interface RoomService {
     Room add(Room room);
-    Room getById(Long roomId);
+    Room findById(Long id);
     List<Room> getAll();
-    Set<Room> getAllRorDates(LocalDate checkIn, LocalDate checkOut);
+    Set<Room> getAllForDates(LocalDate checkIn, LocalDate checkOut);
     Set<Room> getAllByCategory(RoomCategory roomCategory);
 
 }

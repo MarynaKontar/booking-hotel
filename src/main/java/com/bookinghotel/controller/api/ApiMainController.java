@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Endpoints to retrieve data on main page of application
+ */
 @RestController
 @RequestMapping("/main")
 public class ApiMainController {

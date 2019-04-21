@@ -19,14 +19,16 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional
     public UserAccount add(UserAccount userAccount) {
-        userAccount.getUser().setRole(UserRole.USER);
+        if(userAccount.getUser().getRole() == null) {
+            userAccount.getUser().setRole(UserRole.USER);
+        }
         return userAccountRepository.save(userAccount);
     }
 
     @Override
-    public UserAccount findById(Long userAccountId) {
-        return userAccountRepository.findById(userAccountId).orElseThrow(() -> new RuntimeException("userAccount not found"));
+    public UserAccount findById(Long id) {
+        return userAccountRepository.findById(id).orElseThrow(() -> new RuntimeException("userAccount not found " + id));
     }
 }

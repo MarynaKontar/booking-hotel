@@ -1,7 +1,6 @@
 package com.bookinghotel.service.impl;
 
 import com.bookinghotel.model.entity.Booking;
-import com.bookinghotel.model.entity.Hotel;
 import com.bookinghotel.model.entity.Room;
 import com.bookinghotel.model.entity.UserAccount;
 import com.bookinghotel.repository.BookingRepository;
@@ -12,11 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final UserAccountService userAccountService;
@@ -32,18 +32,36 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional
     public Booking add(Booking booking, UserAccount userAccount) {
-//        userAccount = userAccountService.findById(userAccount.getId());
-//        Room room = roomService.getById(booking.getRoom().getId());
-//        booking.setRoom(room);
-//       UserAccount userAccount = booking.getUserAccount();
-//       userAccount.addBooking(booking);
-//       booking.setUserAccount(userAccount);
+        userAccount = userAccountService.findById(userAccount.getId());
+        Room room = roomService.findById(booking.getRoom().getId());
+        validateIfCanBeBooking(booking);
+        booking.setRoom(room);
+        userAccount.addBooking(booking);
+        booking.setUserAccount(userAccount);
+        booking.setTotalPrice(getTotalPrice(booking));
         return bookingRepository.save(booking);
     }
 
     @Override
-    public BigDecimal getTotalPrice(Room room) {
-        return room.getPrice().add(room.getBreakfast().getPrice()).add(room.getCleaningWithAdditionalCost().getPrice());
+    public Booking findById(Long id) {
+        return bookingRepository.findById(id).orElseThrow(() -> new RuntimeException("booking not found " + id));
+    }
+
+    private void validateIfCanBeBooking(Booking booking) {
+        List<Booking> bookings = bookingRepository
+                .findAllByRoomAndDepartureGreaterThanEqualAndArrivalLessThanEqual(booking.getRoom(), booking.getArrival(), booking.getDeparture());
+        if (!bookings.isEmpty()) {
+            throw new RuntimeException("can't book for these dates " + booking.getArrival() + " : " + booking.getDeparture() + "; room is reserved");
+        }
+    }
+
+    @Override
+    public BigDecimal getTotalPrice(Booking booking) {
+        Room room = booking.getRoom();
+        BigDecimal breakfastPrice = (room.getBreakfast() == null) ? BigDecimal.valueOf(0) : room.getBreakfast().getPrice();
+        BigDecimal cleaningPrice = (room.getCleaningWithAdditionalCost() == null) ?
+                BigDecimal.valueOf(0) : room.getCleaningWithAdditionalCost().getPrice();
+        return room.getPrice().add(breakfastPrice).add(cleaningPrice);
     }
 
     @Override
@@ -53,6 +71,13 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<Booking> findAllByHotelId(Long hotelId) {
-        return bookingRepository.findAllByHotelId(hotelId);
+        return bookingRepository.findAllByHotelIdOrderByArrival(hotelId);
+    }
+
+    @Override
+    public List<Booking> findAllByArrivalGreaterThanEqualAndDepartureLessThanEqual(Long roomId, LocalDate checkIn,
+                                                                                   LocalDate checkOut) {
+        Room room = roomService.findById(roomId);
+        return bookingRepository.findAllByRoomAndDepartureGreaterThanEqualAndArrivalLessThanEqual(room, checkIn, checkOut);
     }
 }

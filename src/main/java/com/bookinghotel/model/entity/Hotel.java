@@ -37,4 +37,13 @@ public class Hotel extends AbstractEntity {
         rooms.remove(room);
         room.setHotel(null);
     }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", hotelRating=" + hotelRating +
+                '}';
+    }
 }

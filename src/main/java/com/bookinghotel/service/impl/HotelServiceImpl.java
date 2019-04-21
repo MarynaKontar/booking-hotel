@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class HotelServiceImpl implements HotelService {
     private final RoomRepository roomRepository;
     private final HotelRepository hotelRepository;
@@ -38,6 +39,11 @@ public class HotelServiceImpl implements HotelService {
 
         savedHotel.addRoom(room);
         return roomRepository.save(room);
+    }
+
+    @Override
+    public Hotel findById(Long id) {
+        return hotelRepository.findById(id).orElseThrow(() -> new RuntimeException("hotel not found " + id));
     }
 
     @Override

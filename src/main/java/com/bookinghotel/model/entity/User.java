@@ -12,6 +12,7 @@ public class User extends AbstractEntity {
 
     private String name;
     @Email
+    @Column(unique = true)
     private String email;
     @Enumerated(EnumType.STRING)
     private UserRole role;

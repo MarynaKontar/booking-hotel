@@ -2,10 +2,8 @@ package com.bookinghotel.converter.dto;
 
 import com.bookinghotel.model.dto.BookingDto;
 import com.bookinghotel.model.dto.RoomDto;
-import com.bookinghotel.model.dto.UserAccountDto;
 import com.bookinghotel.model.entity.Booking;
 import com.bookinghotel.model.entity.Room;
-import com.bookinghotel.model.entity.UserAccount;
 import org.springframework.stereotype.Component;
 
 @Component

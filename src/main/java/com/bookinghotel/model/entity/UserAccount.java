@@ -11,9 +11,9 @@ import java.util.List;
 @Entity
 public class UserAccount extends AbstractEntity {
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private User user;
-    @OneToMany(mappedBy = "userAccount", orphanRemoval = true)
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
 
     /**
@@ -21,7 +21,7 @@ public class UserAccount extends AbstractEntity {
      * @param booking for adding to {@link UserAccount}
      */
     public void addBooking(Booking booking) {
-        if (bookings == null || bookings.isEmpty()) {
+        if (bookings == null) {
             bookings = new ArrayList<>();
         }
         bookings.add(booking);
