@@ -36,7 +36,7 @@ public class ApiBookingController {
     }
 
     @GetMapping("/{userAccountId}")
-    public ResponseEntity<BookingSearchingDto> getBookingForUser(@PathVariable Long userAccountId) {
+    public ResponseEntity<BookingSearchingDto> getBookingsForUser(@PathVariable Long userAccountId) {
         List<Booking> bookings = bookingService.findAllByUserAccountId(userAccountId);
         BookingSearchingDto bookingSearchingDto = new BookingSearchingDto();
         List<BookingDto> bookingDtos = bookingDtoConverter.transform(bookings);
