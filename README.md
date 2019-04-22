@@ -30,3 +30,4 @@ The application use next frameworks and technologies:
  To run application, checkout it using the web URL https://github.com/MarynaKontar/booking-hotel.git, 
  run it on http://localhost:8081/api and test with Postman (in src/main/resources there is booking-postman_collection.json that you can import to Postman)
 
+UML diagram is in src/main/resources/uml.png
