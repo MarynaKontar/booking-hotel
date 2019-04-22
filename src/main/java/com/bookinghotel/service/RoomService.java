@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface RoomService {
-//    Room add(Room room);
     Room findById(Long id);
     List<Room> getAll();
     Set<Room> getAllForDates(LocalDate checkIn, LocalDate checkOut);

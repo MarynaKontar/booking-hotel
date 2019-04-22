@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Dto abstract layer for entities
+ * @param <Entity> entity
+ * @param <Dto> dto
+ */
 public abstract class AbstractDtoConverter<Entity extends AbstractEntity, Dto extends AbstractDto> {
 
     public Dto transform(Entity entity) {

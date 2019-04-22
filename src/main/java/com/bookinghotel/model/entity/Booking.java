@@ -19,7 +19,6 @@ public class Booking extends AbstractEntity{
     private LocalDate arrival;
     private LocalDate departure;
     private BigDecimal totalPrice;
-//    private BigDecimal advancePayment; //аванс
 
 
     @Override

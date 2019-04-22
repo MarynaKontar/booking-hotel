@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -50,6 +48,5 @@ public class HotelServiceImpl implements HotelService {
     public List<Hotel> getAll() {
         List<Hotel> hotels = hotelRepository.findAll();
         return hotels;
-//        return hotelRepository.findAll();
     }
 }

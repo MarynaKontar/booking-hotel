@@ -1,7 +1,6 @@
 package com.bookinghotel.service;
 
 import com.bookinghotel.model.entity.Booking;
-import com.bookinghotel.model.entity.Room;
 import com.bookinghotel.model.entity.UserAccount;
 
 import java.math.BigDecimal;

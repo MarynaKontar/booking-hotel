@@ -1,6 +1,5 @@
 package com.bookinghotel.model.entity;
 
-
 import com.bookinghotel.model.enums.RoomCategory;
 import lombok.Data;
 

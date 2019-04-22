@@ -10,19 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Endpoints for {@link Hotel}
  */
-
 @RestController
 @RequestMapping("/hotel")
 public class ApiHotelController {
 
-//    private final HotelDtoConverter hotelDtoConverter;
-//    private final HotelService hotelService;
-//
-//    @Autowired
-//    public ApiHotelController(HotelDtoConverter hotelDtoConverter, HotelService hotelService) {
-//        this.hotelDtoConverter = hotelDtoConverter;
-//        this.hotelService = hotelService;
-//    }
+    private final HotelDtoConverter hotelDtoConverter;
+    private final HotelService hotelService;
 
-
+    @Autowired
+    public ApiHotelController(HotelDtoConverter hotelDtoConverter, HotelService hotelService) {
+        this.hotelDtoConverter = hotelDtoConverter;
+        this.hotelService = hotelService;
+    }
 }

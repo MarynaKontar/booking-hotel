@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -22,13 +21,6 @@ public class RoomServiceImpl implements RoomService {
     public RoomServiceImpl(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
     }
-
-
-//    @Override
-//    @Transactional
-//    public Room add(Room room) {
-//        return roomRepository.save(room);
-//    }
 
     @Override
     public Room findById(Long id) {
@@ -49,6 +41,4 @@ public class RoomServiceImpl implements RoomService {
     public Set<Room> getAllByCategory(RoomCategory roomCategory) {
         return roomRepository.findRoomByCategory(roomCategory);
     }
-
-
 }

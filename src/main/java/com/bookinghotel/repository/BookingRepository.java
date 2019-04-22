@@ -10,12 +10,10 @@ import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-    List<Booking> findAllByArrivalAndDeparture(LocalDate checkIn, LocalDate checkOut);
     List<Booking> findAllByUserAccountId(Long userAccountId);
 
     @Query("SELECT b FROM Booking b WHERE b.room.hotel.id = (?1) ORDER BY b.arrival")
     List<Booking> findAllByHotelIdOrderByArrival(Long hotelId);
 
-//    List<Booking> findAllByArrivalGreaterThanEqual(Long roomId, LocalDate checkIn, LocalDate checkOut);
     List<Booking> findAllByRoomAndDepartureGreaterThanEqualAndArrivalLessThanEqual(Room room, LocalDate checkIn, LocalDate checkOut);
 }

@@ -9,6 +9,7 @@ import java.util.List;
 public interface HotelService {
     Hotel add(Hotel hotel);
     Room addRoom(Room room, @NotNull Hotel hotel);
+
     Hotel findById(Long id);
     List<Hotel> getAll();
 }

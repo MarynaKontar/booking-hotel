@@ -10,16 +10,13 @@ import com.bookinghotel.model.entity.Booking;
 import com.bookinghotel.service.BookingService;
 import com.bookinghotel.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -101,19 +98,4 @@ public class ApiBookingController {
         Booking booking = bookingService.findById(id);
         return ResponseEntity.ok(bookingService.getTotalPrice(booking));
     }
-
-//    @GetMapping("/forRoomAndDates")
-//    public ResponseEntity<BookingSearchingDto> getBookingsForDates(@RequestParam(value = "roomId") @NotEmpty Long roomId,
-//                                                                   @RequestParam(value = "checkIn") @NotEmpty
-//                                                                   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-//                                                                   LocalDate checkIn,
-//                                                                   @RequestParam(value = "checkOut") @NotEmpty
-//                                                                   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-//                                                                   LocalDate checkOut) {
-//        List<Booking> bookings = bookingService.findAllByArrivalGreaterThanEqualAndDepartureLessThanEqual(roomId, checkIn, checkOut);
-//        BookingSearchingDto bookingSearchingDto = new BookingSearchingDto();
-//        List<BookingDto> bookingDtos = bookingDtoConverter.transform(bookings);
-//        bookingSearchingDto.setBookings(bookingDtos);
-//        return ResponseEntity.ok(bookingSearchingDto);
-//    }
 }
