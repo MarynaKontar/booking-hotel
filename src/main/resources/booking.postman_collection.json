@@ -1,0 +1,260 @@
+{
+	"info": {
+		"name": "booking",
+		"_postman_id": "fadf1a6a-d510-ce29-3e59-1a13deb4853c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "View rooms filtered by category",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"roomCategory\": \"SUITE\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:8081/api/room/?roomCategory=president",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"room",
+						""
+					],
+					"query": [
+						{
+							"key": "roomCategory",
+							"value": "president",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\": {\n\t\t\"name\": \"Maryna\",\n\t\t\"email\": \"marina.acoustic@gmail.com\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:8081/api/account",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"account"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create booking",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userAccount\": {\n\t    \"id\": 2\n\t  },\n\t  \"room\": {\n            \"id\": 8\n        },\n\t  \"checkIn\": \"2019-08-12\",\n\t  \"checkOut\": \"2019-08-28\"\n    }\n"
+				},
+				"url": {
+					"raw": "http://{{host}}:8081/api/booking",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"booking"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User can view his booking",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"roomCategory\": \"SUITE\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:8081/api/booking/2",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"booking",
+						"2"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "View all bookings for the hotel",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"roomCategory\": \"SUITE\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:8081/api/booking/hotel/2",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"booking",
+						"hotel",
+						"2"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of rooms and hotels for application main page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}:8081/api/main",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"main"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "View list of available rooms for specified dates",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"checkIn\": \"2019-09-11\",\n \"checkOut\": \"2019-09-30\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:8081/api/room/forDates?checkIn=2019-09-11&checkOut=2019-09-28",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"room",
+						"forDates"
+					],
+					"query": [
+						{
+							"key": "checkIn",
+							"value": "2019-09-11",
+							"equals": true
+						},
+						{
+							"key": "checkOut",
+							"value": "2019-09-28",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get the total price of the booking",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{host}}:8081/api/booking/totalPrice/1",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"booking",
+						"totalPrice",
+						"1"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

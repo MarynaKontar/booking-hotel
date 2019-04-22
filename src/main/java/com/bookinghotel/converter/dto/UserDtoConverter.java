@@ -27,6 +27,5 @@ public class UserDtoConverter extends AbstractDtoConverter<User, UserDto> {
     protected void convertFromDto(UserDto dto, User entity) {
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
-        entity.setRole(dto.getRole());
     }
 }

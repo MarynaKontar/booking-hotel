@@ -2,7 +2,9 @@ package com.bookinghotel.controller.api;
 
 import com.bookinghotel.converter.dto.HotelDtoConverter;
 import com.bookinghotel.converter.dto.RoomDtoConverter;
+import com.bookinghotel.model.dto.HotelDto;
 import com.bookinghotel.model.dto.MainDto;
+import com.bookinghotel.model.dto.RoomDto;
 import com.bookinghotel.service.HotelService;
 import com.bookinghotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,10 @@ public class ApiMainController {
         this.roomService = roomService;
     }
 
+    /**
+     * Endpoint to get {@link ResponseEntity<MainDto>} with list of all {@link HotelDto} and list of all {@link RoomDto}
+     * @return {@link ResponseEntity<MainDto>} with list of all {@link HotelDto} and list of all {@link RoomDto}
+     */
     @GetMapping
     public ResponseEntity<MainDto> getInformationForBooking() {
         MainDto mainDto = new MainDto();

@@ -45,6 +45,11 @@ public class ApiBookingController {
         this.hotelDtoConverter = hotelDtoConverter;
     }
 
+    /**
+     * Endpoint for saving booking
+     * @param bookingDto booking dto for saving
+     * @return {@link ResponseEntity<BookingDto>} object holding the saving {@link BookingDto}
+     */
     @PostMapping
     public ResponseEntity<BookingDto> create(@RequestBody @NotNull @Valid BookingDto bookingDto) {
         Booking booking = bookingService.add(bookingDtoConverter.transform(bookingDto),
@@ -52,6 +57,13 @@ public class ApiBookingController {
         return new ResponseEntity<>(bookingDtoConverter.transform(booking), HttpStatus.CREATED);
     }
 
+    /**
+     * Endpoint to get {@link ResponseEntity<BookingSearchingDto>} holding the {@link BookingSearchingDto}
+     * with list of all {@link BookingDto} for userAccount with userAccountId
+     * @param userAccountId id of the userAccount
+     * @return {@link ResponseEntity<BookingSearchingDto>} holding the {@link BookingSearchingDto}
+     * with list of all {@link BookingDto} for userAccount
+     */
     @GetMapping("/{userAccountId}")
     public ResponseEntity<BookingSearchingDto> getBookingsForUser(@PathVariable Long userAccountId) {
         List<Booking> bookings = bookingService.findAllByUserAccountId(userAccountId);
@@ -61,6 +73,13 @@ public class ApiBookingController {
         return ResponseEntity.ok(bookingSearchingDto);
     }
 
+    /**
+     * Endpoint to get {@link ResponseEntity<BookingSearchingDto>} holding the {@link BookingSearchingDto}
+     * with list of {@link BookingDto} for hotel with hotelId
+     * @param hotelId id of the hotel
+     * @return {@link ResponseEntity<BookingSearchingDto>} holding the {@link BookingSearchingDto}
+     * with list of {@link BookingDto} for hotel with hotelId
+     */
     @GetMapping("/hotel/{hotelId}")
     public ResponseEntity<BookingSearchingDto> getBookingsForHotel(@PathVariable Long hotelId) {
         List<Booking> bookings = bookingService.findAllByHotelId(hotelId);
@@ -71,6 +90,12 @@ public class ApiBookingController {
         bookingSearchingDto.setHotel(hotelDto);
         return ResponseEntity.ok(bookingSearchingDto);
     }
+
+    /**
+     * Endpoint to get {@link ResponseEntity<BigDecimal>} object holding the total booking price
+     * @param id booking id
+     * @return {@link ResponseEntity<BigDecimal>} object holding the total booking price
+     */
     @GetMapping("/totalPrice/{id}")
     public ResponseEntity<BigDecimal> getTotalPriceForBooking(@PathVariable Long id) {
         Booking booking = bookingService.findById(id);

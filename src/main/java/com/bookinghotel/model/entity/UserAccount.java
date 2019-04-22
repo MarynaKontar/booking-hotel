@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -35,6 +36,22 @@ public class UserAccount extends AbstractEntity {
         if (bookings != null)
             bookings.remove(booking);
         booking.setUserAccount(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        UserAccount that = (UserAccount) o;
+        return Objects.equals(user, that.user) &&
+                Objects.equals(bookings, that.bookings);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), user, bookings);
     }
 
     @Override

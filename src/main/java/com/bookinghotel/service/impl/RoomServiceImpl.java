@@ -24,11 +24,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
 
-    @Override
-    @Transactional
-    public Room add(Room room) {
-        return roomRepository.save(room);
-    }
+//    @Override
+//    @Transactional
+//    public Room add(Room room) {
+//        return roomRepository.save(room);
+//    }
 
     @Override
     public Room findById(Long id) {
@@ -40,7 +40,6 @@ public class RoomServiceImpl implements RoomService {
         return roomRepository.findAll();
     }
 
-    //TODO
     @Override
     public Set<Room> getAllForDates(LocalDate checkIn, LocalDate checkOut) {
         return roomRepository.findAllByDates(checkIn, checkOut);

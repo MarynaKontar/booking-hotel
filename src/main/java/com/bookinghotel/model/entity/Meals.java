@@ -8,6 +8,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Data
 @Embeddable
@@ -16,4 +17,20 @@ public class Meals {
     private MealsType mealsType;
     @Column(name="mealPrice")
     private BigDecimal price;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Meals meals = (Meals) o;
+        return mealsType == meals.mealsType &&
+                Objects.equals(price, meals.price);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), mealsType, price);
+    }
 }

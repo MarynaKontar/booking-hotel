@@ -1,6 +1,7 @@
 package com.bookinghotel.controller.api;
 
 import com.bookinghotel.converter.dto.RoomDtoConverter;
+import com.bookinghotel.model.dto.RoomDto;
 import com.bookinghotel.model.dto.RoomSearchingDto;
 import com.bookinghotel.model.entity.Room;
 import com.bookinghotel.model.enums.RoomCategory;
@@ -29,10 +30,11 @@ public class ApiRoomController {
     }
 
     /**
-     * Endpoint for get {@link RoomSearchingDto} with list of {@link Room} that are available from checkIn to checkOut
+     * Endpoint for get {@link ResponseEntity<RoomSearchingDto>} with list of {@link RoomDto} that are available
+     * from checkIn to checkOut
      * @param checkIn the date from which the room should be free
      * @param checkOut the date until which the room should be free
-     * @return {@link RoomSearchingDto} with list of {@link Room} that are available from checkIn to checkOut
+     * @return {@link RoomSearchingDto} with list of {@link RoomDto} that are available from checkIn to checkOut
      */
     @GetMapping("/forDates")
     public ResponseEntity<RoomSearchingDto> getRoomsForDates(@RequestParam(value = "checkIn") @NotEmpty
@@ -49,9 +51,11 @@ public class ApiRoomController {
     }
 
     /**
-     * Endpoint for get {@link RoomSearchingDto} with list of {@link Room} with {@link RoomCategory} equal roomCategory
-     * @param roomCategory the {@link RoomCategory} of {@link Room}
-     * @return {@link RoomSearchingDto} with list of {@link Room} with {@link RoomCategory} equal roomCategory
+     * Endpoint for get {@link ResponseEntity<RoomSearchingDto>} with list of {@link RoomDto} with
+     * {@link RoomCategory} equal roomCategory
+     * @param roomCategory the {@link RoomCategory} of {@link RoomDto}
+     * @return {@link ResponseEntity<RoomSearchingDto>} with list of {@link RoomDto} with
+     * {@link RoomCategory} equal roomCategory
      */
     @GetMapping
     public ResponseEntity<RoomSearchingDto> getRoomsByCategory(@RequestParam(value = "roomCategory") @NotEmpty String roomCategory) {

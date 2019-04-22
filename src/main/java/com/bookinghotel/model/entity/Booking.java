@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -20,6 +21,25 @@ public class Booking extends AbstractEntity{
     private BigDecimal totalPrice;
 //    private BigDecimal advancePayment; //аванс
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Booking booking = (Booking) o;
+        return Objects.equals(userAccount, booking.userAccount) &&
+                Objects.equals(room, booking.room) &&
+                Objects.equals(arrival, booking.arrival) &&
+                Objects.equals(departure, booking.departure) &&
+                Objects.equals(totalPrice, booking.totalPrice);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), userAccount, room, arrival, departure, totalPrice);
+    }
 
     @Override
     public String toString() {

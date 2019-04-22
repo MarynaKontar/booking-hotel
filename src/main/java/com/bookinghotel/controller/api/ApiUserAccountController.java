@@ -27,6 +27,11 @@ public class ApiUserAccountController {
         this.userAccountDtoConverter = userAccountDtoConverter;
     }
 
+    /**
+     * Endpoint for saving {@link UserAccountDto}
+     * @param userAccountDto dto of userAccount
+     * @return saved userAccount in dto
+     */
     @PostMapping
     public ResponseEntity<UserAccountDto> create(@RequestBody @NotNull @Valid UserAccountDto userAccountDto) {
         UserAccount userAccount = userAccountService.add(userAccountDtoConverter.transform(userAccountDto));

@@ -14,24 +14,20 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Component
-public class TestApp {
+public class FillingDB {
     private static Integer roomNumber = 0;
     private static Integer hotelNumber = 0;
     private static Integer userNumber = 0;
 
-    private final UserService userService;
     private final UserAccountService userAccountService;
-    private final RoomService roomService;
     private final HotelService hotelService;
     private final BookingService bookingService;
 
     @Autowired
-    public TestApp(UserService userService, UserAccountService userAccountService,
-                   RoomService roomService, HotelService hotelService,
-                   BookingService bookingService) {
-        this.userService = userService;
+    public FillingDB(UserAccountService userAccountService,
+                     HotelService hotelService,
+                     BookingService bookingService) {
         this.userAccountService = userAccountService;
-        this.roomService = roomService;
         this.hotelService = hotelService;
         this.bookingService = bookingService;
     }

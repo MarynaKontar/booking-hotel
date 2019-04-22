@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -36,6 +37,24 @@ public class Hotel extends AbstractEntity {
         if (rooms != null)
         rooms.remove(room);
         room.setHotel(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Hotel hotel = (Hotel) o;
+        return Objects.equals(name, hotel.name) &&
+                Objects.equals(city, hotel.city) &&
+                hotelRating == hotel.hotelRating &&
+                Objects.equals(rooms, hotel.rooms);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), name, city, hotelRating, rooms);
     }
 
     @Override
