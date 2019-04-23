@@ -5,10 +5,12 @@ import com.bookinghotel.model.dto.UserAccountDto;
 import com.bookinghotel.model.entity.UserAccount;
 import com.bookinghotel.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -36,5 +38,13 @@ public class ApiUserAccountController {
     public ResponseEntity<UserAccountDto> create(@RequestBody @NotNull @Valid UserAccountDto userAccountDto) {
         UserAccount userAccount = userAccountService.add(userAccountDtoConverter.transform(userAccountDto));
         return new ResponseEntity<>(userAccountDtoConverter.transform(userAccount), HttpStatus.CREATED);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<HttpHeaders> handleException(RuntimeException ex, HttpServletRequest request) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("messageError", "Something wrong: " + ex.getMessage()
+                + "; path: " + request.getServletPath());
+        return ResponseEntity.badRequest().headers(httpHeaders).build();
     }
 }
