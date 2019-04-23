@@ -8,11 +8,9 @@ import com.bookinghotel.model.enums.RoomCategory;
 import com.bookinghotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
@@ -65,13 +63,5 @@ public class ApiRoomController {
         roomSearchingDto.setRooms(roomDtoConverter.transform(roomService.getAllByCategory(RoomCategory.valueOf(roomCategory.toUpperCase()))));
         roomSearchingDto.setRoomCategory(RoomCategory.valueOf(roomCategory.toUpperCase()));
         return ResponseEntity.ok().body(roomSearchingDto);
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<HttpHeaders> handleException(RuntimeException ex, HttpServletRequest request) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("messageError", "Something wrong: " + ex.getMessage()
-                + "; path: " + request.getServletPath());
-        return ResponseEntity.badRequest().headers(httpHeaders).build();
     }
 }

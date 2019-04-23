@@ -8,14 +8,10 @@ import com.bookinghotel.model.dto.RoomDto;
 import com.bookinghotel.service.HotelService;
 import com.bookinghotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Endpoints to retrieve data on main page of application
@@ -47,13 +43,5 @@ public class ApiMainController {
         mainDto.setHotels(hotelDtoConverter.transform(hotelService.getAll()));
         mainDto.setRooms(roomDtoConverter.transform(roomService.getAll()));
         return ResponseEntity.ok().body(mainDto);
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<HttpHeaders> handleException(RuntimeException ex, HttpServletRequest request) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("messageError", "Something wrong: " + ex.getMessage()
-                + "; path: " + request.getServletPath());
-        return ResponseEntity.badRequest().headers(httpHeaders).build();
     }
 }

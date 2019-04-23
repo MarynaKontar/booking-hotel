@@ -5,15 +5,19 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Data
 @Entity
 public class User extends AbstractEntity {
 
+    @NotEmpty
     private String name;
     @Email
     @Column(unique = true)
+    @NotNull
     private String email;
     @Enumerated(EnumType.STRING)
     private UserRole role;
