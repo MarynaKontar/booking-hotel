@@ -1,5 +1,6 @@
 package com.bookinghotel.service.impl;
 
+import com.bookinghotel.exception.BadRequestException;
 import com.bookinghotel.model.entity.Room;
 import com.bookinghotel.model.enums.RoomCategory;
 import com.bookinghotel.repository.RoomRepository;
@@ -24,7 +25,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public Room findById(Long id) {
-      return roomRepository.findById(id).orElseThrow(() -> new RuntimeException("room not found " + id));
+      return roomRepository.findById(id).orElseThrow(() -> new BadRequestException("room not found " + id));
     }
 
     @Override

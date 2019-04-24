@@ -1,5 +1,6 @@
 package com.bookinghotel.service.impl;
 
+import com.bookinghotel.exception.BadRequestException;
 import com.bookinghotel.model.entity.UserAccount;
 import com.bookinghotel.model.enums.UserRole;
 import com.bookinghotel.repository.UserAccountRepository;
@@ -29,6 +30,6 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public UserAccount findById(Long id) {
-        return userAccountRepository.findById(id).orElseThrow(() -> new RuntimeException("userAccount not found " + id));
+        return userAccountRepository.findById(id).orElseThrow(() -> new BadRequestException("userAccount not found " + id));
     }
 }

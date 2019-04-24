@@ -1,5 +1,6 @@
 package com.bookinghotel.service.impl;
 
+import com.bookinghotel.exception.BadRequestException;
 import com.bookinghotel.model.entity.Hotel;
 import com.bookinghotel.model.entity.Room;
 import com.bookinghotel.repository.HotelRepository;
@@ -41,7 +42,7 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public Hotel findById(Long id) {
-        return hotelRepository.findById(id).orElseThrow(() -> new RuntimeException("hotel not found " + id));
+        return hotelRepository.findById(id).orElseThrow(() -> new BadRequestException("hotel not found " + id));
     }
 
     @Override

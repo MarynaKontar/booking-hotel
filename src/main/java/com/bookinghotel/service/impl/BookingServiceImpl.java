@@ -1,5 +1,6 @@
 package com.bookinghotel.service.impl;
 
+import com.bookinghotel.exception.BadRequestException;
 import com.bookinghotel.model.entity.Booking;
 import com.bookinghotel.model.entity.Room;
 import com.bookinghotel.model.entity.UserAccount;
@@ -44,14 +45,14 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking findById(Long id) {
-        return bookingRepository.findById(id).orElseThrow(() -> new RuntimeException("booking not found " + id));
+        return bookingRepository.findById(id).orElseThrow(() -> new BadRequestException("booking not found " + id));
     }
 
     private void validateIfCanBeBooking(Booking booking) {
         List<Booking> bookings = bookingRepository
                 .findAllByRoomAndDepartureGreaterThanEqualAndArrivalLessThanEqual(booking.getRoom(), booking.getArrival(), booking.getDeparture());
         if (!bookings.isEmpty()) {
-            throw new RuntimeException("can't book for these dates " + booking.getArrival() + " : " + booking.getDeparture() + "; room is reserved");
+            throw new BadRequestException("can't book for these dates " + booking.getArrival() + " : " + booking.getDeparture() + "; room is reserved");
         }
     }
 
